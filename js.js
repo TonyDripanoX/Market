@@ -23,6 +23,22 @@ const grid = document.getElementById('market-grid');
 const itemCountSpan = document.getElementById('item-count');
 const addItemForm = document.getElementById('add-item-form');
 
+function obliczStatystyki() {
+    let suma = 0;
+    const produkty = items.filter(item => item.type === 'product');
+    const ileProduktow = produkty.length;
+
+    produkty.forEach(item => {
+        suma += parseInt(item.price);
+    });
+
+    let srednia = ileProduktow > 0 ? suma / ileProduktow : 0;
+
+
+    document.getElementById('total-value').innerText = suma.toLocaleString(); 
+    document.getElementById('average-price').innerText = srednia.toFixed(2);
+}
+
 function saveToLocalStorage() {
     localStorage.setItem('myDropList', JSON.stringify(items));
 }
@@ -64,6 +80,8 @@ function renderMarket() {
                 </div>`;
         }
         grid.appendChild(card);
+
+         obliczStatystyki();
     });
 }
 
@@ -88,5 +106,6 @@ addItemForm.addEventListener('submit', (e) => {
     renderMarket();
     addItemForm.reset();
 });
+
 
 renderMarket();
