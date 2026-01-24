@@ -63,15 +63,13 @@ function renderMarket() {
         if (item.type === 'ambassador') {
             card.classList.add('ambassador-card');
             card.style.backgroundImage = `url('${item.img}')`;
-            card.innerHTML = `
-                ${deleteBTN}
+            card.innerHTML = `${deleteBTN}
                 <div class="ambassador-overlay">
                     <h3>${item.name}</h3>
                     <p>${item.msg}</p>
                 </div>`;
         } else {
-            card.innerHTML = `
-                ${deleteBTN}
+            card.innerHTML = `${deleteBTN}
                 <img src="${item.img}" alt="${item.name}">
                 <div class="product-info">
                     <span class="brand">${item.brand}</span>
@@ -80,32 +78,30 @@ function renderMarket() {
                 </div>`;
         }
         grid.appendChild(card);
-
-         obliczStatystyki();
     });
+
+
+    obliczStatystyki();
 }
 
 addItemForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     let inputprice = document.getElementById('price').value;
-
-    let finalprice = inputprice.toUpperCase().includes('PLN')
-    ? inputprice 
-    : inputprice + "PLN";
+    let finalprice = inputprice.toUpperCase().includes('PLN') ? inputprice : inputprice + " PLN";
 
     const newItem = {
         type: 'product',
         brand: document.getElementById('brand').value.toUpperCase(),
         name: document.getElementById('name').value,
-        price:finalprice,
+        price: finalprice,
         img: document.getElementById('img-url').value
     };
+
     items.push(newItem);
     saveToLocalStorage();
     renderMarket();
     addItemForm.reset();
 });
 
-
 renderMarket();
+
